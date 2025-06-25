@@ -1,5 +1,6 @@
-# Herramienta diseñada para la extracción rápida y estructurada de registros esenciales en sistemas Linux, orientada al análisis forense y la preservación de evidencia digital.
+# ScrabForensics
 
+Herramienta diseñada para la extracción rápida y estructurada de registros esenciales en sistemas Linux, orientada al análisis forense y la preservación de evidencia digital.
 
 Antes de ejecutar la herramienta, asegúrese de asignarle los permisos adecuados con el siguiente comando: chmod +x 
  
