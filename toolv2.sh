@@ -9,22 +9,22 @@ USER_HOME="/home/$USER_NAME"
 
 # === SSH config ===
 
-if [[ -f ./etc/ssh/sshd_config.d ]] then
-    cp ./etc/ssh/sshd_config.d "$DEST/"
+if [[ -f /etc/ssh/sshd_config.d ]] then
+    cp /etc/ssh/sshd_config.d "$DEST/"
 
 else
     echo "[!] No se encontro ./etc/ssh/sshd_config.d"
 fi
 
-if [[ -f ./etc/ssh/ssh_config.d ]] then
-    cp ./etc/ssh/ssh_config.d "$DEST/"
+if [[ -f /etc/ssh/ssh_config.d ]] then
+    cp /etc/ssh/ssh_config.d "$DEST/"
 
 else
-    echo "[!] No se encontro ./etc/ssh/ssh_config"
+    echo "[!] No se encontro /etc/ssh/ssh_config"
 fi
 
-if [[ -f ./etc/ssh ]] then
-    cp ./etc/ssh "$DEST/"
+if [[ -f /etc/ssh ]] then
+    cp /etc/ssh "$DEST/"
 
 else
     echo "[!] No se encontro /etc/ssh"
