@@ -35,7 +35,7 @@ for dir in /home/*; do
   fi
 done
 
-[ -d /root/.bash_history ] && echo "==== Historial de root ====" >> $DEST/historico_bashRoot.txt && cat /root/.bash_history >> $DEST/historico_bashRoot.txt
+[ -f /root/.bash_history ] && echo "==== Historial de root ====" >> $DEST/historico_bashRoot.txt && cat /root/.bash_history >> $DEST/historico_bashRoot.txt
 
 # === conexiones activas ===
 
@@ -149,7 +149,7 @@ fi
 
 # netconfig
 
-if [[ -d /etc/netconfig ]] then 
+if [[ -f /etc/netconfig ]]; then 
     cp /etc/netconfig "$DEST/netconfig"
 else 
     echo "[!] No se encontro /etc/netconfig"
