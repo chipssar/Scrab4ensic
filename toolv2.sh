@@ -134,7 +134,7 @@ else
 fi
 
 if [[ -d /etc/sysconfig/network-scripts ]] then
- cp -r /etc/sysconfig/network-scripts/ifcfg-* "$DEST/" 
+ cp /etc/sysconfig/network-scripts/ifcfg-* "$DEST/ifcfg-" 
 else
   echo "[!] No se encontraron archivos ifcfg-*"
 fi
@@ -142,7 +142,7 @@ fi
 # netconfig
 
 if [[ -d /etc/netconfig ]] then 
-    cp -r /etc/netconfig "$DEST/netconfig.txt"
+    cp /etc/netconfig "$DEST/netconfig"
 else 
     echo "[!] No se encontro /etc/netconfig"
 fi
@@ -168,12 +168,12 @@ fi
 last > "$DEST/last_logins.txt"
 
 # === hosts y hostname ===
-[[ -d /etc/hosts ]] && cp /etc/hosts "$DEST/"
-[[ -d /etc/hostname ]] && cp /etc/hostname "$DEST/"
+[[ -d /etc/hosts ]] && cp /etc/hosts "$DEST/hosts.txt"
+[[ -d /etc/hostname ]] && cp /etc/hostname "$DEST/hostname.txt"
 
 # === logs de Apache (si aplica) ===
-[[ -d /var/log/apache2/access.log ]] && cp /var/log/apache2/access.log "$DEST/"
-[[ -d /var/log/apache2/error.log ]] && cp /var/log/apache2/error.log "$DEST/"
+[[ -d /var/log/apache2/access.log ]] && cp /var/log/apache2/access.log "$DEST/access.log" || echo "[!] No se encontró access.log"
+[[ -d /var/log/apache2/error.log ]] && cp /var/log/apache2/error.log "$DEST/error.log" || echo "[!] No se encontró error.log"
 
 # === directorios temporales ===
 [[ -d /tmp ]] && cp -r /tmp "$DEST/tmp" || echo "[!] No se encontró /tmp"
