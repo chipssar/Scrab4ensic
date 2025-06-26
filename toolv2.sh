@@ -76,7 +76,7 @@ fi
 
 # === crontab ===
 if [[ -d /var/spool/cron ]] then
- cp -r /var/spool/cron "$DEST/cron/"
+ cp -r /var/spool/cron "$DEST/cron"
 
 else
     echo "[!] No se encontró /var/spool/cron"
@@ -128,7 +128,7 @@ fi
 # === audit
 
 if [[ -d /var/spool/audit ]] then
-  cp -r /etc/spool/audit "$DEST/audit"
+  cp -r /var/spool/audit "$DEST/audit"
 
  else
     echo "[!] No se encontro /etc/spool/audit"
@@ -154,6 +154,8 @@ if [[ -f /etc/netconfig ]]; then
 else 
     echo "[!] No se encontro /etc/netconfig"
 fi
+
+# === 
 
 
 # === reglas de iptables ===
@@ -191,6 +193,10 @@ last > "$DEST/last_logins.txt"
 # === búsqueda de archivos .babyk ===
 find / -type f -name "*.babyk" 2>/dev/null > "$DEST/archivos_babyk.txt"
 
+# === busqueda del readme 
+
+find / -type f - name "README_babyk.txt" 2>/dev/null > "$DEST/README_babyk.txt"
+
 # === copiar carpetas ocultas del usuario ===
 HIDDEN_DIRS=(".ssh" ".config" ".local" ".cache" ".gnupg")
 
@@ -199,6 +205,10 @@ for dir in "${HIDDEN_DIRS[@]}"; do
     cp -r "$USER_HOME/$dir" "$DEST/"
   fi
 done
+
+# Comprimir carpeta de evidencias
+tar -czvf EvidenciasD.tar.gz "$DEST"
+
 
 echo "[✓] Extracción completada. Archivos guardados en: $DEST"
 
