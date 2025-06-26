@@ -16,7 +16,7 @@ mkdir -p "$DEST"
 
 # --- firewalld logs del firewall dinámico 
 
-[[-f /var/log/firewalld ]] && cp /var/log/firewalld "$DEST/"
+[[ -f /var/log/firewalld ]] && cp /var/log/firewalld "$DEST/"
 
 # ---  journal logs del sistema centralizados (autenticación, red, servicios, etc.)
 
