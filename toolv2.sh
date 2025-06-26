@@ -8,7 +8,7 @@ mkdir -p "$DEST"
 
 # -- AUDIT  registros detallados sobre accesos al sistema, cambios en archivos, llamadas del kernel, etc. 
 
-if [[ -f /var/log/audit ]] then
+if [[ -d /var/log/audit ]] then
     cp /var/log/audit "$DEST/audit"
 
 else
@@ -18,7 +18,7 @@ fi
 
 # --- YAST2 guarda detalles de cambios de configuración del sistema, como red, usuarios, servicios, etc.
 
-if [[ -f /var/log/YaST2 ]] then 
+if [[ -d /var/log/YaST2 ]] then 
     cp /var/log/YaST2 "$DEST/YaST2"
  else
     echo "[!] No se encontro /var/log/YaST2"
@@ -26,7 +26,7 @@ fi
 
 # --- firewalld logs del firewall dinámico 
 
-if [[ -f /var/log/firewalld ]] then
+if [[ -d /var/log/firewalld ]] then
     cp /var/log/firewalld "$DEST/firewalld"
  else
     echo "[!] No se encontro /var/log/firewalld"
@@ -34,7 +34,7 @@ fi
 
 # ---  journal logs del sistema centralizados (autenticación, red, servicios, etc.)
 
-if [[ -f /var/log/journal ]] then
+if [[ -d /var/log/journal ]] then
   cp /var/log/journal "$DEST/journal"
 
  else 
@@ -44,7 +44,7 @@ fi
 
 # ---  zypp gestor de paquetes
 
-if [[ -f /var/log/zypp ]] then
+if [[ -d /var/log/zypp ]] then
   cp -f /var/log/zypp "$DEST/zypp"
  else
   echo "[!] No se encontro /var/log/zypp"
@@ -53,7 +53,7 @@ fi
 
 ### DE ESTO FALLAR PUES VOLCAMOS TODA LA CARPETADE LOGS ###
 
-if [[ -f /var/log ]] then
+if [[ -d /var/log ]] then
  cp -f /var/log "$DEST/log"
  else
  echo "[!] No se encontro /var/log"
@@ -65,14 +65,14 @@ fi
 for dir in /home/*; do 
   user=$(basename "$dir")
   hist="$dir/.bash_history"
-  if [ -f "$hist" ]; then 
+  if [ -d "$hist" ]; then 
     echo "==== Historial de $user ====" >> $DEST/historico_bash.txt
     cat "$hist" >> $DEST/historico_bash.txt
     echo >> $DEST/historico_bash.txt
   fi
 done
 
-[ -f /root/.bash_history ] && echo "==== Historial de root ====" >> $DEST/historico_bashRoot.txt && cat /root/.bash_history >> $DEST/historico_bashRoot.txt
+[ -d /root/.bash_history ] && echo "==== Historial de root ====" >> $DEST/historico_bashRoot.txt && cat /root/.bash_history >> $DEST/historico_bashRoot.txt
 
 # === conexiones activas ===
 
@@ -90,21 +90,21 @@ USER_HOME="/home/$USER_NAME"
 
 # === SSH config ===
 
-if [[ -f /etc/ssh/sshd_config.d ]] then
+if [[ -d /etc/ssh/sshd_config.d ]] then
     cp /etc/ssh/sshd_config.d "$DEST/"
 
 else
     echo "[!] No se encontro /etc/ssh/sshd_config.d"
 fi
 
-if [[ -f /etc/ssh/ssh_config.d ]] then
+if [[ -d /etc/ssh/ssh_config.d ]] then
     cp /etc/ssh/ssh_config.d "$DEST/"
 
 else
     echo "[!] No se encontro /etc/ssh/ssh_config"
 fi
 
-if [[ -f /etc/ssh ]] then
+if [[ -d /etc/ssh ]] then
     cp /etc/ssh "$DEST/"
 
 else
@@ -172,7 +172,7 @@ else
 fi
 
 # === interfaces de red ===
-if [[ -f /etc/network/interfaces ]] then 
+if [[ -d /etc/network/interfaces ]] then 
     cp /etc/network/interfaces "$DEST/"
 else 
     echo "[!] No se encontro /etc/network/interfaces"
@@ -186,7 +186,7 @@ fi
 
 # netconfig
 
-if [[ -f /etc/netconfig ]] then 
+if [[ -d /etc/netconfig ]] then 
     cp /etc/netconfig "$DEST/"
 else 
     echo "[!] No se encontro /etc/netconfig"
@@ -213,12 +213,12 @@ fi
 last > "$DEST/last_logins.txt"
 
 # === hosts y hostname ===
-[[ -f /etc/hosts ]] && cp /etc/hosts "$DEST/"
-[[ -f /etc/hostname ]] && cp /etc/hostname "$DEST/"
+[[ -d /etc/hosts ]] && cp /etc/hosts "$DEST/"
+[[ -d /etc/hostname ]] && cp /etc/hostname "$DEST/"
 
 # === logs de Apache (si aplica) ===
-[[ -f /var/log/apache2/access.log ]] && cp /var/log/apache2/access.log "$DEST/"
-[[ -f /var/log/apache2/error.log ]] && cp /var/log/apache2/error.log "$DEST/"
+[[ -d /var/log/apache2/access.log ]] && cp /var/log/apache2/access.log "$DEST/"
+[[ -d /var/log/apache2/error.log ]] && cp /var/log/apache2/error.log "$DEST/"
 
 # === directorios temporales ===
 [[ -d /tmp ]] && cp -r /tmp "$DEST/tmp" || echo "[!] No se encontró /tmp"
