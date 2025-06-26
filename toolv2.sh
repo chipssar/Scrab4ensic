@@ -6,51 +6,6 @@ mkdir -p "$DEST"
 
 # === logs ====
 
-# -- AUDIT  registros detallados sobre accesos al sistema, cambios en archivos, llamadas del kernel, etc. 
-
-if [[ -d /var/log/audit ]] then
-    cp -r /var/log/audit "$DEST/audit"
-
-else
-    echo "[!] No se encontro /var/log/audit"
-
-fi 
-
-# --- YAST2 guarda detalles de cambios de configuración del sistema, como red, usuarios, servicios, etc.
-
-if [[ -d /var/log/YaST2 ]] then 
-    cp -r /var/log/YaST2 "$DEST/YaST2"
- else
-    echo "[!] No se encontro /var/log/YaST2"
-fi
-
-# --- firewalld logs del firewall dinámico 
-
-if [[ -d /var/log/firewalld ]] then
-    cp -r /var/log/firewalld "$DEST/firewalld"
- else
-    echo "[!] No se encontro /var/log/firewalld"
-fi
-
-# ---  journal logs del sistema centralizados (autenticación, red, servicios, etc.)
-
-if [[ -d /var/log/journal ]] then
-  cp -r /var/log/journal "$DEST/journal"
-
- else 
-  echo "[!] No se encontro /var/log/journal"
-
-fi
-
-# ---  zypp gestor de paquetes
-
-if [[ -d /var/log/zypp ]] then
-  cp -r /var/log/zypp "$DEST/zypp"
- else
-  echo "[!] No se encontro /var/log/zypp"
-fi 
-
-
 ### DE ESTO FALLAR PUES VOLCAMOS TODA LA CARPETADE LOGS ###
 
 if [[ -d /var/log ]] then
@@ -66,9 +21,9 @@ for dir in /home/*; do
   user=$(basename "$dir")
   hist="$dir/.bash_history"
   if [ -d "$hist" ]; then 
-    echo "==== Historial de $user ====" >> $DEST/historico_bash.txt
-    cat "$hist" >> $DEST/historico_bash.txt
-    echo >> $DEST/historico_bash.txt
+    echo "==== Historial de $user ====" >> "$DEST/historico_bash.txt"
+    cat "$hist" >> "$DEST/historico_bash.txt"
+    echo >> "$DEST/historico_bash.txt"
   fi
 done
 
@@ -91,21 +46,21 @@ USER_HOME="/home/$USER_NAME"
 # === SSH config ===
 
 if [[ -d /etc/ssh/sshd_config.d ]] then
-    cp /etc/ssh/sshd_config.d "$DEST/"
+    cp -r /etc/ssh/sshd_config.d "$DEST/sshd_config.d"
 
 else
     echo "[!] No se encontro /etc/ssh/sshd_config.d"
 fi
 
 if [[ -d /etc/ssh/ssh_config.d ]] then
-    cp /etc/ssh/ssh_config.d "$DEST/"
+    cp -r /etc/ssh/ssh_config.d "$DEST/ssh_config.d"
 
 else
     echo "[!] No se encontro /etc/ssh/ssh_config"
 fi
 
 if [[ -d /etc/ssh ]] then
-    cp /etc/ssh "$DEST/"
+    cp -r /etc/ssh "$DEST/ssh"
 
 else
     echo "[!] No se encontro /etc/ssh"
@@ -173,13 +128,13 @@ fi
 
 # === interfaces de red ===
 if [[ -d /etc/network/interfaces ]] then 
-    cp /etc/network/interfaces "$DEST/"
+    cp -r /etc/network/interfaces "$DEST/interfaces"
 else 
     echo "[!] No se encontro /etc/network/interfaces"
 fi
 
 if [[ -d /etc/sysconfig/network-scripts ]] then
- cp /etc/sysconfig/network-scripts/ifcfg-* "$DEST/" 2>/dev/null
+ cp -r /etc/sysconfig/network-scripts/ifcfg-* "$DEST/" 
 else
   echo "[!] No se encontraron archivos ifcfg-*"
 fi
@@ -187,7 +142,7 @@ fi
 # netconfig
 
 if [[ -d /etc/netconfig ]] then 
-    cp /etc/netconfig "$DEST/"
+    cp -r /etc/netconfig "$DEST/netconfig"
 else 
     echo "[!] No se encontro /etc/netconfig"
 fi
