@@ -13,7 +13,7 @@ if [[ -f /etc/ssh/sshd_config ]] then
     cp /etc/ssh/sshd_config "$DEST/"
 
 else
-    echo "[No se encontro /etc/ssh/sshd_config]"
+    echo "[!] No se encontro /etc/ssh/sshd_config"
 fi
 
 # === crontab del usuario ===
@@ -21,14 +21,21 @@ if [[ -d /var/spool/cron ]] then
  cp -r /var/spool/cron "$DEST/cron/"
 
 else
-    echo "[No se encontró /var/spool/cron]"
+    echo "[!] No se encontró /var/spool/cron"
+fi
+
+if [[ -d /etc/crontab ]] then
+ cp -r /var/spool/cron "$DEST/cron/"
+
+else
+    echo "[!] No se encontró /etc/crontab"
 fi
 
 # === interfaces de red ===
 if [[ -f /etc/network/interfaces ]] then 
     cp /etc/network/interfaces "$DEST/"
 else 
-    echo "[No se encontro /etc/network/interfaces]"
+    echo "[!] No se encontro /etc/network/interfaces"
 fi
 
 if [[ -d /etc/sysconfig/network-scripts ]] then
