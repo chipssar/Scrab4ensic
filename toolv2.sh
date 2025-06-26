@@ -8,7 +8,7 @@ mkdir -p "$DEST"
 
 ### DE ESTO FALLAR PUES VOLCAMOS TODA LA CARPETADE LOGS ###
 
-if [[ -d /var/log ]] then
+if [[ -d /var/log ]]; then
  cp -r /var/log "$DEST/log"
  else
  echo "[!] No se encontro /var/log"
@@ -53,21 +53,21 @@ USER_HOME="/home/$USER_NAME"
 
 # === SSH config ===
 
-if [[ -d /etc/ssh/sshd_config.d ]] then
+if [[ -d /etc/ssh/sshd_config.d ]]; then
     cp -r /etc/ssh/sshd_config.d "$DEST/sshd_config.d"
 
 else
     echo "[!] No se encontro /etc/ssh/sshd_config.d"
 fi
 
-if [[ -d /etc/ssh/ssh_config.d ]] then
+if [[ -d /etc/ssh/ssh_config.d ]]; then
     cp -r /etc/ssh/ssh_config.d "$DEST/ssh_config.d"
 
 else
     echo "[!] No se encontro /etc/ssh/ssh_config"
 fi
 
-if [[ -d /etc/ssh ]] then
+if [[ -d /etc/ssh ]]; then
     cp -r /etc/ssh "$DEST/ssh"
 
 else
@@ -75,7 +75,7 @@ else
 fi
 
 # === crontab ===
-if [[ -d /var/spool/cron ]] then
+if [[ -d /var/spool/cron ]]; then
  cp -r /var/spool/cron "$DEST/cron"
 
 else
@@ -91,7 +91,7 @@ fi
 
 # cron.hourly
 
-if [[ -d /etc/cron.hourly ]] then
+if [[ -d /etc/cron.hourly ]]; then
  cp -r /etc/cron.hourly "$DEST/cron.hourly"
 
 else
@@ -100,7 +100,7 @@ fi
 
 # cron.daily
 
-if [[ -d /etc/cron.daily ]] then
+if [[ -d /etc/cron.daily ]]; then
  cp -r /etc/cron.daily "$DEST/cron.daily"
 
 else
@@ -109,7 +109,7 @@ fi
 
 # cron.weekly
 
-if [[ -d /etc/cron.weekly ]] then
+if [[ -d /etc/cron.weekly ]]; then
  cp -r /etc/cron.weekly "$DEST/cron.weekly"
 
 else
@@ -118,7 +118,7 @@ fi
 
 # cron.monthly
 
-if [[ -d /etc/cron.monthly ]] then
+if [[ -d /etc/cron.monthly ]]; then
  cp -r /etc/cron.monthly "$DEST/cron.monthly"
 
 else
@@ -127,7 +127,7 @@ fi
 
 # === audit
 
-if [[ -d /var/spool/audit ]] then
+if [[ -d /var/spool/audit ]]; then
   cp -r /var/spool/audit "$DEST/audit"
 
  else
