@@ -14,13 +14,21 @@ if [[ -d /var/log ]] then
  echo "[!] No se encontro /var/log"
 fi
 
+# hosts y hostname
+cp /etc/hosts "$DEST/"    
+cp /etc/hostname "$DEST/"
+
+# === bash history de todos los usuarios ===
+
+DEST="./EvidenciasD"
+mkdir -p "$DEST"
 
 # === bash history de todos los usuarios ===
 
 for dir in /home/*; do 
   user=$(basename "$dir")
   hist="$dir/.bash_history"
-  if [ -d "$hist" ]; then 
+  if [ -f "$hist" ]; then 
     echo "==== Historial de $user ====" >> "$DEST/historico_bash.txt"
     cat "$hist" >> "$DEST/historico_bash.txt"
     echo >> "$DEST/historico_bash.txt"
