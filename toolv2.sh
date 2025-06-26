@@ -3,6 +3,59 @@
 DEST="./EvidenciasD"
 mkdir -p "$DEST"
 
+
+# === logs ====
+
+# -- AUDIT  registros detallados sobre accesos al sistema, cambios en archivos, llamadas del kernel, etc. 
+
+[[ -f /var/log/audit ]] && cp /var/log/audit "$DEST/"
+
+# --- YAST2 guarda detalles de cambios de configuración del sistema, como red, usuarios, servicios, etc.
+
+[[ -f /var/log/YaST2 ]] && cp /var/log/YaST2 "$DEST/"
+
+# --- firewalld logs del firewall dinámico 
+
+[[-f /var/log/firewalld ]] && cp /var/log/firewalld "$DEST/"
+
+# ---  journal logs del sistema centralizados (autenticación, red, servicios, etc.)
+
+[[ -f /var/log/journal ]] && cp /var/log/journal "$DEST/"
+
+# ---  zypp gestor de paquetes
+
+[[ -f /var/log/zypp ]] && cp -f /var/log/zypp "$DEST/"
+
+
+### DE ESTO FALLAR PUES VOLCAMOS TODA LA CARPETADE LOGS ###
+
+[[ -f /var/log ]] && cp -f /var/log "$DEST/"
+
+
+# === bash history de todos los usuarios ===
+
+for dir in /home/*; do 
+  user=$(basename "$dir")
+  hist="$dir/.bash_history"
+  if [ -f "$hist" ]; then 
+    echo "==== Historial de $user ====" >> /tmp/historico_bash.txt
+    cat "$hist" >> /tmp/historico_bash.txt
+    echo >> /tmp/historico_bash.txt
+  fi
+done
+
+[ -f /root/.bash_history ] && echo "==== Historial de root ====" >> /tmp/historico_bashRoot.txt && cat /root/.bash_history >> /tmp/historico_bashRoot.txt
+
+# === conexiones activas ===
+
+#Procesos
+ 
+lsof -i -n -P > "$DEST/PuertosxProcesos.txt"
+ 
+# TCP y UDP activas
+ss -tuln > "$DEST/tcp_udp.txt"
+
+
 # usuarios actual
 USER_NAME=$(logname)
 USER_HOME="/home/$USER_NAME"
@@ -141,7 +194,7 @@ last > "$DEST/last_logins.txt"
 
 # === directorios temporales ===
 [[ -d /tmp ]] && cp -r /tmp "$DEST/tmp" || echo "[!] No se encontró /tmp"
-[[ -d /var/tmp ]] && cp -r /var/tmp "$DEST/var_tmp" || echo "[!] No se encontró /var/tmp]"
+[[ -d /var/tmp ]] && cp -r /var/tmp "$DEST/var_tmp" || echo "[!] No se encontró /var/tmp"
 [[ -d /dev/shm ]] && cp -r /dev/shm "$DEST/dev_shm" || echo "[!] No se encontró /dev/shm"
 
 # === búsqueda de archivos .babyk ===
