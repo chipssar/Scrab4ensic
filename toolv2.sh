@@ -88,7 +88,7 @@ if [[ -d /var/spool/audit ]] then
 
 else
     echo "[!] No se encontro /etc/spool/audit"
-
+fi
 
 # === interfaces de red ===
 if [[ -f /etc/network/interfaces ]] then 
