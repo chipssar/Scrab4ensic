@@ -9,14 +9,28 @@ USER_HOME="/home/$USER_NAME"
 
 # === SSH config ===
 
-if [[ -f /etc/ssh/sshd_config ]] then
-    cp /etc/ssh/sshd_config "$DEST/"
+if [[ -f /etc/ssh/sshd_config.d ]] then
+    cp /etc/ssh/sshd_config.d "$DEST/"
 
 else
     echo "[!] No se encontro /etc/ssh/sshd_config"
 fi
 
-# === crontab del usuario ===
+if [[ -f /etc/ssh/ssh_config.d ]] then
+    cp /etc/ssh/ssh_config.d "$DEST/"
+
+else
+    echo "[!] No se encontro /etc/ssh/ssh_config"
+fi
+
+if [[ -f /etc/ssh ]] then
+    cp /etc/ssh "$DEST/"
+
+else
+    echo "[!] No se encontro /etc/ssh"
+fi
+
+# === crontab ===
 if [[ -d /var/spool/cron ]] then
  cp -r /var/spool/cron "$DEST/cron/"
 
@@ -25,11 +39,56 @@ else
 fi
 
 if [[ -d /etc/crontab ]] then
- cp -r /var/spool/cron "$DEST/cron/"
+ cp -r /etc/crontab "$DEST/crontab"
 
 else
     echo "[!] No se encontró /etc/crontab"
 fi
+
+# cron.hourly
+
+if [[ -d /etc/cron.hourly ]] then
+ cp -r /etc/cron.hourly "$DEST/cron.hourly"
+
+else
+    echo "[!] No se encontró /etc/cron.hourly"
+fi
+
+# cron.daily
+
+if [[ -d /etc/cron.daily ]] then
+ cp -r /etc/cron.daily "$DEST/cron.daily"
+
+else
+    echo "[!] No se encontró /etc/cron.daily"
+fi
+
+# cron.weekly
+
+if [[ -d /etc/cron.weekly ]] then
+ cp -r /etc/cron.weekly "$DEST/cron.weekly"
+
+else
+    echo "[!] No se encontró /etc/cron.weekly"
+fi
+
+# cron.monthly
+
+if [[ -d /etc/cron.monthly ]] then
+ cp -r /etc/cron.monthly "$DEST/cron.monthly"
+
+else
+    echo "[!] No se encontró /etc/cron.monthly"
+fi
+
+# === audit
+
+if [[ -d /var/spool/audit ]] then
+  cp -r /etc/spool/audit "$DEST/audit"
+
+else
+    echo "[!] No se encontro /etc/spool/audit"
+
 
 # === interfaces de red ===
 if [[ -f /etc/network/interfaces ]] then 
@@ -43,6 +102,15 @@ if [[ -d /etc/sysconfig/network-scripts ]] then
 else
   echo "[!] No se encontraron archivos ifcfg-*"
 fi
+
+# netconfig
+
+if [[ -f /etc/netconfig ]] then 
+    cp /etc/netconfig "$DEST/"
+else 
+    echo "[!] No se encontro /etc/netconfig"
+fi
+
 
 # === reglas de iptables ===
 iptables-save > "$DEST/iptables.rules"
