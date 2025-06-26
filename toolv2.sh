@@ -82,7 +82,7 @@ else
     echo "[!] No se encontró /var/spool/cron"
 fi
 
-if [[ -d /etc/crontab ]]; then
+if [[ -f /etc/crontab ]]; then
  cp -r /etc/crontab "$DEST/crontab.txt"
 
 else
