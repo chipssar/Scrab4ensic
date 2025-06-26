@@ -8,28 +8,56 @@ mkdir -p "$DEST"
 
 # -- AUDIT  registros detallados sobre accesos al sistema, cambios en archivos, llamadas del kernel, etc. 
 
-[[ -f /var/log/audit ]] && cp /var/log/audit "$DEST/"
+if [[ -f /var/log/audit ]] then
+    cp /var/log/audit "$DEST/audit"
+
+else
+    echo "[!] No se encontro /var/log/audit"
+
+fi 
 
 # --- YAST2 guarda detalles de cambios de configuración del sistema, como red, usuarios, servicios, etc.
 
-[[ -f /var/log/YaST2 ]] && cp /var/log/YaST2 "$DEST/"
+if [[ -f /var/log/YaST2 ]] then 
+    cp /var/log/YaST2 "$DEST/YaST2"
+ else
+    echo "[!] No se encontro /var/log/YaST2"
+fi
 
 # --- firewalld logs del firewall dinámico 
 
-[[ -f /var/log/firewalld ]] && cp /var/log/firewalld "$DEST/"
+if [[ -f /var/log/firewalld ]] then
+    cp /var/log/firewalld "$DEST/firewalld"
+ else
+    echo "[!] No se encontro /var/log/firewalld"
+fi
 
 # ---  journal logs del sistema centralizados (autenticación, red, servicios, etc.)
 
-[[ -f /var/log/journal ]] && cp /var/log/journal "$DEST/"
+if [[ -f /var/log/journal ]] then
+  cp /var/log/journal "$DEST/journal"
+
+ else 
+  echo "[!] No se encontro /var/log/journal"
+
+fi
 
 # ---  zypp gestor de paquetes
 
-[[ -f /var/log/zypp ]] && cp -f /var/log/zypp "$DEST/"
+if [[ -f /var/log/zypp ]] then
+  cp -f /var/log/zypp "$DEST/zypp"
+ else
+  echo "[!] No se encontro /var/log/zypp"
+fi 
 
 
 ### DE ESTO FALLAR PUES VOLCAMOS TODA LA CARPETADE LOGS ###
 
-[[ -f /var/log ]] && cp -f /var/log "$DEST/"
+if [[ -f /var/log ]] then
+ cp -f /var/log "$DEST/log"
+ else
+ echo "[!] No se encontro /var/log"
+fi
 
 
 # === bash history de todos los usuarios ===
@@ -38,13 +66,13 @@ for dir in /home/*; do
   user=$(basename "$dir")
   hist="$dir/.bash_history"
   if [ -f "$hist" ]; then 
-    echo "==== Historial de $user ====" >> /tmp/historico_bash.txt
-    cat "$hist" >> /tmp/historico_bash.txt
-    echo >> /tmp/historico_bash.txt
+    echo "==== Historial de $user ====" >> $DEST/historico_bash.txt
+    cat "$hist" >> $DEST/historico_bash.txt
+    echo >> $DEST/historico_bash.txt
   fi
 done
 
-[ -f /root/.bash_history ] && echo "==== Historial de root ====" >> /tmp/historico_bashRoot.txt && cat /root/.bash_history >> /tmp/historico_bashRoot.txt
+[ -f /root/.bash_history ] && echo "==== Historial de root ====" >> $DEST/historico_bashRoot.txt && cat /root/.bash_history >> $DEST/historico_bashRoot.txt
 
 # === conexiones activas ===
 
@@ -66,7 +94,7 @@ if [[ -f /etc/ssh/sshd_config.d ]] then
     cp /etc/ssh/sshd_config.d "$DEST/"
 
 else
-    echo "[!] No se encontro ./etc/ssh/sshd_config.d"
+    echo "[!] No se encontro /etc/ssh/sshd_config.d"
 fi
 
 if [[ -f /etc/ssh/ssh_config.d ]] then
