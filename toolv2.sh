@@ -82,7 +82,7 @@ else
     echo "[!] No se encontró /var/spool/cron"
 fi
 
-if [[ -d /etc/crontab ]] then
+if [[ -d /etc/crontab ]]; then
  cp -r /etc/crontab "$DEST/crontab.txt"
 
 else
@@ -135,13 +135,13 @@ if [[ -d /var/spool/audit ]] then
 fi
 
 # === interfaces de red ===
-if [[ -d /etc/network/interfaces ]] then 
+if [[ -d /etc/network/interfaces ]]; then 
     cp -r /etc/network/interfaces "$DEST/interfaces"
 else 
     echo "[!] No se encontro /etc/network/interfaces"
 fi
 
-if [[ -d /etc/sysconfig/network-scripts ]] then
+if [[ -d /etc/sysconfig/network-scripts ]]; then
  cp /etc/sysconfig/network-scripts/ifcfg-* "$DEST/ifcfg-" 
 else
   echo "[!] No se encontraron archivos ifcfg-*"
