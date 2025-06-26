@@ -9,7 +9,7 @@ mkdir -p "$DEST"
 # -- AUDIT  registros detallados sobre accesos al sistema, cambios en archivos, llamadas del kernel, etc. 
 
 if [[ -d /var/log/audit ]] then
-    cp /var/log/audit "$DEST/audit"
+    cp -r /var/log/audit "$DEST/audit"
 
 else
     echo "[!] No se encontro /var/log/audit"
@@ -19,7 +19,7 @@ fi
 # --- YAST2 guarda detalles de cambios de configuración del sistema, como red, usuarios, servicios, etc.
 
 if [[ -d /var/log/YaST2 ]] then 
-    cp /var/log/YaST2 "$DEST/YaST2"
+    cp -r /var/log/YaST2 "$DEST/YaST2"
  else
     echo "[!] No se encontro /var/log/YaST2"
 fi
@@ -27,7 +27,7 @@ fi
 # --- firewalld logs del firewall dinámico 
 
 if [[ -d /var/log/firewalld ]] then
-    cp /var/log/firewalld "$DEST/firewalld"
+    cp -r /var/log/firewalld "$DEST/firewalld"
  else
     echo "[!] No se encontro /var/log/firewalld"
 fi
@@ -35,7 +35,7 @@ fi
 # ---  journal logs del sistema centralizados (autenticación, red, servicios, etc.)
 
 if [[ -d /var/log/journal ]] then
-  cp /var/log/journal "$DEST/journal"
+  cp -r /var/log/journal "$DEST/journal"
 
  else 
   echo "[!] No se encontro /var/log/journal"
@@ -45,7 +45,7 @@ fi
 # ---  zypp gestor de paquetes
 
 if [[ -d /var/log/zypp ]] then
-  cp -f /var/log/zypp "$DEST/zypp"
+  cp -r /var/log/zypp "$DEST/zypp"
  else
   echo "[!] No se encontro /var/log/zypp"
 fi 
@@ -54,7 +54,7 @@ fi
 ### DE ESTO FALLAR PUES VOLCAMOS TODA LA CARPETADE LOGS ###
 
 if [[ -d /var/log ]] then
- cp -f /var/log "$DEST/log"
+ cp -r /var/log "$DEST/log"
  else
  echo "[!] No se encontro /var/log"
 fi
