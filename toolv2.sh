@@ -75,7 +75,7 @@ else
 fi
 
 if [[ -d /etc/crontab ]] then
- cp -r /etc/crontab "$DEST/crontab"
+ cp -r /etc/crontab "$DEST/crontab.txt"
 
 else
     echo "[!] No se encontró /etc/crontab"
@@ -122,7 +122,7 @@ fi
 if [[ -d /var/spool/audit ]] then
   cp -r /etc/spool/audit "$DEST/audit"
 
-else
+ else
     echo "[!] No se encontro /etc/spool/audit"
 fi
 
@@ -142,7 +142,7 @@ fi
 # netconfig
 
 if [[ -d /etc/netconfig ]] then 
-    cp -r /etc/netconfig "$DEST/netconfig"
+    cp -r /etc/netconfig "$DEST/netconfig.txt"
 else 
     echo "[!] No se encontro /etc/netconfig"
 fi
