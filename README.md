@@ -1,9 +1,5 @@
-
-Scrab4rensics - Recolección forense de evidencia en equipos Linux
- 
-Este script recopila información del sistema, servicios, procesos, red, autenticación, historial de comandos y archivos relevantes para análisis forense.
-
 Notas:
+- Otorgar permisos al programa.
 - Ejecutar como root para maximizar acceso (lectura de /etc/shadow, /root, etc.)
 - En sistemas sin systemd, algunas salidas vendrán vacías; se guardan igual.
 - El ZIP queda en /tmp/<hostname>_YYYYMMDDThhmmssZ.zip
