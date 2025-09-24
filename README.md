@@ -1,6 +1,9 @@
 
 This program gathers information about the system, services, processes, network, authentication, command history, and relevant files for forensic analysis.
 
+<img width="764" height="639" alt="image" src="https://github.com/user-attachments/assets/a18a44cf-2b43-4184-8b80-bfd8075fc766" />
+
+
 Note:
 
 - Grant permissions to the program.
